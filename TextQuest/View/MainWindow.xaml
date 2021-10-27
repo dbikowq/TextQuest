@@ -1,0 +1,63 @@
+﻿<Window x:Class="TextQuest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:materialDesign = "http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TextQuest"
+        xmlns:vm="clr-namespace:TextQuest.ViewModel"
+        mc:Ignorable="d"
+        Title="Сборник текстовых квестов" Height="512.528" Width="811.784" ResizeMode="NoResize">
+
+    <Window.DataContext>
+        <vm:MainVindowViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="boolToVis"/>
+    </Window.Resources>
+
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Button Grid.Column="0" Content="Загрузить Квесты" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" Width="155" Command="{Binding LoadQuests}" IsEnabled="{Binding CanSearch}"/>
+        <ComboBox Grid.Column="0" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="155" ItemsSource="{Binding Quests}" DisplayMemberPath="Title" Height="32" SelectedItem="{Binding SelectQuest}" materialDesign:HintAssist.Hint="Select quest after loading"/>
+
+        <ScrollViewer Grid.Column="1" HorizontalAlignment="Left" Height="285" Margin="10,10,0,0" VerticalAlignment="Top" Width="586" ScrollViewer.VerticalScrollBarVisibility="Visible">
+            <TextBlock Grid.Column="1" FontSize="16" FontStyle="Oblique" FontFamily="Times New Roman" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding TextQuest}" VerticalAlignment="Top"/>
+        </ScrollViewer>
+        <Button Grid.Column="0" Content="Начать игру" HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top" Width="155" IsEnabled="{Binding CanStart}" Command="{Binding StartGame}"/>
+        <Grid Grid.Column="1" HorizontalAlignment="Left" Height="174" Margin="10,300,0,0" VerticalAlignment="Top" Width="586">
+            <StackPanel HorizontalAlignment="Left" Width="576">
+                <Button MaxWidth="550" Margin="5" Command="{Binding Answer1}" Content="{Binding BtnText1}" HorizontalAlignment="Left" Visibility="{Binding BtnVisible1, Converter={StaticResource boolToVis}}"/>
+                <Button MaxWidth="550" Margin="5" Command="{Binding Answer2}" Content="{Binding BtnText2}" HorizontalAlignment="Left" Visibility="{Binding BtnVisible2, Converter={StaticResource boolToVis}}"/>
+                <Button MaxWidth="550" Margin="5" Command="{Binding Answer3}" Content="{Binding BtnText3}" HorizontalAlignment="Left" Visibility="{Binding BtnVisible3, Converter={StaticResource boolToVis}}"/>
+                <Button MaxWidth="550" Margin="5" Command="{Binding Answer4}" Content="{Binding BtnText4}" HorizontalAlignment="Left" Visibility="{Binding BtnVisible4, Converter={StaticResource boolToVis}}"/>
+            </StackPanel>
+
+
+
+
+        </Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="10,323,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="151" Width="180">
+            Приложение сделано по сайту сборника текстовых квестов <Hyperlink NavigateUri="https://apero.ru/"> www.apero.ru</Hyperlink>
+            <LineBreak/>
+            <LineBreak/>
+            <LineBreak/>
+            <LineBreak/>
+            Автор:
+            <LineBreak/>
+            Быков Дмитрий Сергеевич
+            <LineBreak/>
+            19 ИЗС
+        </TextBlock>
+        <Image HorizontalAlignment="Left" Height="162" Margin="10,143,0,0" VerticalAlignment="Top" Width="162" Source="{Binding LinkImg}"/>
+
+
+
+    </Grid>
+</Window>
